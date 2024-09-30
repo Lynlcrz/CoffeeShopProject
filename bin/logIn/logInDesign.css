@@ -1,0 +1,132 @@
+.parent{
+    -fx-background-color: transparent;
+}
+
+.logIn{
+   -fx-background-color: #5F6F52; 
+}
+
+.signUp{
+   -fx-background-color: #5F6F52; 
+}
+.bgLog{
+   -fx-background-color: #FEFAE0;
+}
+
+.logInButton{
+	    -fx-background-color: #A9B388; 
+	    -fx-text-fill: #5F6F52;           
+		-fx-border-color: #A9B388;
+		-fx-border-radius: 100px; 
+		-fx-border-width: 2px;
+	}
+
+	
+	.logInButton:hover {
+	    -fx-border-color: #A9B388;
+		-fx-border-radius: 100px;
+		-fx-border-width: 2px;
+		-fx-text-fill: #A9B388; 
+		-fx-background-color: transparent; 
+	}
+	
+	
+	
+	.signB{
+		    -fx-background-color: #A9B388; 
+		    -fx-text-fill: #5F6F52;           
+			-fx-border-color: #A9B388;
+			-fx-border-radius: 100px; 
+			-fx-border-width: 2px;
+		}
+
+		
+		.signB:hover {
+		    -fx-border-color: #A9B388;
+			-fx-border-radius: 100px;
+			-fx-border-width: 2px;
+			-fx-text-fill: #A9B388; 
+			-fx-background-color: transparent; 
+		}
+		
+		
+	.createAcc{
+		    -fx-background-color: transparent; 
+		    -fx-text-fill:  #A9B388;           
+			-fx-border-color: #A9B388;
+			-fx-border-radius: 100px; 
+			-fx-border-width: 2px;
+		}
+
+		
+		.createAcc:hover {
+		    -fx-border-color:  #A9B388;
+			-fx-border-radius: 100px;
+			-fx-border-width: 2px;
+			-fx-text-fill:#5F6F52; 
+			-fx-background-color:  #A9B388; 
+		}
+		
+		
+		.shortLog{
+				    -fx-background-color: transparent; 
+				    -fx-text-fill:  #A9B388;           
+					-fx-border-color: #A9B388;
+					-fx-border-radius: 100px; 
+					-fx-border-width: 2px;
+				}
+
+				
+				.shortLog:hover {
+				    -fx-border-color:  #A9B388;
+					-fx-border-radius: 100px;
+					-fx-border-width: 2px;
+					-fx-text-fill:#5F6F52; 
+					-fx-background-color:  #A9B388; 
+				}
+		
+.tagBg{
+	-fx-background-color:  #FEFAE0; 
+}
+
+.userLog{
+	-fx-padding: 0 0 0 30;
+}
+
+.passLog{
+	-fx-padding: 0 0 0 30;
+}
+
+.userSign{
+	-fx-padding: 0 0 0 30;
+}
+
+.passSign{
+	-fx-padding: 0 0 0 30;
+}
+
+.confirmPass{
+	-fx-padding: 0 0 0 30;
+}
+
+.hidden {
+    -fx-image: url('/pictures/hidden.png'); 
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 20px 20px;
+    -fx-background-position: center;
+    -fx-cursor: hand; 
+}
+
+
+.eye {
+    -fx-background-image: url('/pictures/eye.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 20px 20px;
+    -fx-background-position: center;
+    -fx-cursor: hand;
+}
+
+
+.iconHolder {
+   -fx-background-color: #5F6F52;
+}

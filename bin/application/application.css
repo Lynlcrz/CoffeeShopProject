@@ -1,0 +1,16 @@
+.parent{
+    -fx-background-color: transparent;
+}
+
+.signUp {
+	-fx-background-color: #FEFAE0;
+}
+
+
+.iconHolder {
+   -fx-background-color: #5F6F52;
+}
+
+.menuButton {
+	-fx-background-color: #A9B388;
+}
