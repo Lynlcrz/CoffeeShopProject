@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -9,36 +11,117 @@
    <top>
         <AnchorPane prefHeight="750.0" prefWidth="1300.0" styleClass="signUp" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane prefHeight="750.0" prefWidth="283.0" style="-fx-background-radius: 40;" styleClass="menuButton" stylesheets="@application.css">
+            <AnchorPane prefHeight="750.0" prefWidth="283.0" style="-fx-background-radius: 40;" styleClass="menuButton" stylesheets="@application.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <AnchorPane prefHeight="750.0" prefWidth="59.0" styleClass="iconHolder" stylesheets="@application.css" />
-                  <Pane layoutX="58.0" layoutY="193.0" prefHeight="52.0" prefWidth="225.0">
+                  <AnchorPane prefHeight="750.0" prefWidth="59.0" styleClass="iconHolder" stylesheets="@application.css">
+                     <children>
+                        <Pane layoutY="211.0" prefHeight="52.0" prefWidth="59.0">
+                           <children>
+                              <ImageView fitHeight="31.0" fitWidth="31.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../Downloads/home.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <Pane layoutY="263.0" prefHeight="52.0" prefWidth="59.0">
+                           <children>
+                              <ImageView fitHeight="27.0" fitWidth="26.0" layoutX="17.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../Downloads/coffee-bean-for-a-coffee-break.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <Pane layoutY="315.0" prefHeight="52.0" prefWidth="59.0">
+                           <children>
+                              <ImageView fitHeight="35.0" fitWidth="31.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../Downloads/dollars-money-bag-on-a-hand.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <Pane layoutY="367.0" prefHeight="52.0" prefWidth="59.0">
+                           <children>
+                              <ImageView fitHeight="29.0" fitWidth="30.0" layoutX="15.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../Downloads/clock.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <Pane layoutY="419.0" prefHeight="52.0" prefWidth="59.0">
+                           <children>
+                              <ImageView fitHeight="31.0" fitWidth="26.0" layoutX="17.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../Downloads/wallet.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <Pane layoutY="471.0" prefHeight="52.0" prefWidth="59.0">
+                           <children>
+                              <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="17.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../Downloads/book-of-black-cover-closed.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <Pane layoutY="698.0" prefHeight="52.0" prefWidth="59.0">
+                           <children>
+                              <ImageView fitHeight="25.0" fitWidth="28.0" layoutX="17.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../Downloads/log-out.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                     </children></AnchorPane>
+                  <Pane layoutX="60.0" layoutY="212.0" prefHeight="52.0" prefWidth="225.0">
                      <children>
                         <Label layoutX="95.0" layoutY="18.0" text="HOME" />
                      </children>
                   </Pane>
-                  <Pane layoutX="59.0" layoutY="245.0" prefHeight="52.0" prefWidth="224.0">
+                  <Pane layoutX="59.0" layoutY="264.0" prefHeight="52.0" prefWidth="225.0">
                      <children>
-                        <Label layoutX="77.0" layoutY="18.0" text="DASHBOARD" />
+                        <Label layoutX="83.0" layoutY="18.0" text="PRODUCTS" />
                      </children>
                   </Pane>
-                  <Pane layoutX="58.0" layoutY="297.0" prefHeight="52.0" prefWidth="225.0">
-                     <children>
-                        <Label layoutX="94.0" layoutY="18.0" text="ORDER" />
-                     </children>
-                  </Pane>
-                  <Pane layoutX="59.0" layoutY="349.0" prefHeight="52.0" prefWidth="225.0">
+                  <Pane layoutX="60.0" layoutY="316.0" prefHeight="52.0" prefWidth="225.0">
                      <children>
                         <Label layoutX="86.0" layoutY="18.0" text="PAYMENT" />
                      </children>
                   </Pane>
-                  <Pane layoutX="59.0" layoutY="401.0" prefHeight="52.0" prefWidth="225.0">
+                  <Pane layoutX="60.0" layoutY="368.0" prefHeight="52.0" prefWidth="225.0">
                      <children>
-                        <Label layoutX="77.0" layoutY="18.0" text="ON PROCESS" />
+                        <Label layoutX="90.0" layoutY="18.0" text="ORDERS" />
+                     </children>
+                  </Pane>
+                  <Pane layoutX="60.0" layoutY="420.0" prefHeight="52.0" prefWidth="225.0">
+                     <children>
+                        <Label layoutX="91.0" layoutY="18.0" text="WALLET" />
+                     </children>
+                  </Pane>
+                  <Pane layoutX="60.0" layoutY="472.0" prefHeight="52.0" prefWidth="225.0">
+                     <children>
+                        <Label layoutX="89.0" layoutY="18.0" text="HISTORY" />
+                     </children>
+                  </Pane>
+                  <ImageView fitHeight="142.0" fitWidth="133.0" layoutX="105.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../Downloads/cup%20(1).png" />
+                     </image>
+                  </ImageView>
+                  <Pane layoutX="59.0" layoutY="693.0" prefHeight="57.0" prefWidth="226.0">
+                     <children>
+                        <Label layoutX="88.0" layoutY="20.0" text="LOG OUT" />
                      </children>
                   </Pane>
                </children>
             </AnchorPane>
+            <Pane layoutX="294.0" layoutY="28.0" prefHeight="694.0" prefWidth="978.0" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0" />
          </children>
         </AnchorPane>
    </top>

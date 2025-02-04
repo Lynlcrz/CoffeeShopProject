@@ -25,17 +25,17 @@
                      <Button fx:id="logInSign" layoutX="55.0" layoutY="515.0" mnemonicParsing="false" onAction="#OnlogInSignClick" prefHeight="36.0" prefWidth="251.0" style="-fx-background-radius: 100;" styleClass="shortLog" stylesheets="@logInDesign.css" text="LOGIN" />
                   <ImageView fitHeight="16.0" fitWidth="14.0" layoutX="76.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Downloads/user%20(2).png" />
+                        <Image url="@../../../../Downloads/user%20(2).png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="18.0" fitWidth="13.0" layoutX="77.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Downloads/padlock.png" />
+                        <Image url="@../../../../Downloads/padlock.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="18.0" fitWidth="13.0" layoutX="77.0" layoutY="333.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../Downloads/padlock.png" />
+                        <Image url="@../../../../Downloads/padlock.png" />
                      </image>
                   </ImageView>
                   <Label layoutX="116.0" layoutY="130.0" styleClass="signUp" stylesheets="@logInDesign.css" text="Sign Up">
@@ -51,7 +51,7 @@
                </children></AnchorPane>
             <ImageView fitHeight="600.0" fitWidth="699.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/download.jpg" />
+                  <Image url="@../../../../Downloads/download.jpg" />
                </image>
             </ImageView>
             <Pane layoutX="148.0" layoutY="254.0" opacity="0.5" prefHeight="161.0" prefWidth="412.0" style="-fx-background-radius: 10;" styleClass="tagBg" stylesheets="@logInDesign.css">
@@ -65,7 +65,7 @@
             </Pane>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="273.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/cup%20(1).png" />
+                  <Image url="@../../../../Downloads/cup%20(1).png" />
                </image>
             </ImageView>
 

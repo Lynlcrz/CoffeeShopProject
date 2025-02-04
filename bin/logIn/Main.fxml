@@ -34,17 +34,17 @@
             </Label>
             <ImageView fitHeight="16.0" fitWidth="14.0" layoutX="74.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/user%20(2).png" />
+                  <Image url="@../../../../Downloads/user%20(2).png" />
                </image>
             </ImageView>
             <ImageView fitHeight="18.0" fitWidth="13.0" layoutX="74.0" layoutY="287.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/padlock.png" />
+                  <Image url="@../../../../Downloads/padlock.png" />
                </image>
             </ImageView>
             <ImageView fx:id="eyeLock" fitHeight="26.0" fitWidth="15.0" layoutX="267.0" layoutY="287.0" onMouseClicked="#toggleIcon" pickOnBounds="true" preserveRatio="true" styleClass="hidden">
                  <image>
-                   <Image url="@../../../../../Downloads/eye.png" />
+                   <Image url="@../../../../Downloads/eye.png" />
                  </image>
             </ImageView>
 
@@ -55,7 +55,7 @@
          <children>
             <ImageView fitHeight="600.0" fitWidth="699.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/download.jpg" />
+                  <Image url="@../../../../Downloads/download.jpg" />
                </image>
             </ImageView>
             <Pane layoutX="140.0" layoutY="268.0" opacity="0.5" prefHeight="161.0" prefWidth="412.0" style="-fx-background-radius: 10;" styleClass="tagBg" stylesheets="@logInDesign.css">
@@ -69,7 +69,7 @@
             </Pane>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="266.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/cup%20(1).png" />
+                  <Image url="@../../../../Downloads/cup%20(1).png" />
                </image>
             </ImageView>
          </children></AnchorPane>
