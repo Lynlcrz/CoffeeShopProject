@@ -81,32 +81,32 @@
                      </children></AnchorPane>
                   <Pane layoutX="60.0" layoutY="212.0" prefHeight="52.0" prefWidth="225.0">
                      <children>
-                        <Label layoutX="95.0" layoutY="18.0" text="HOME" />
+                        <Label layoutX="95.0" layoutY="18.0" onMouseClicked="#openHome" text="HOME" />
                      </children>
                   </Pane>
                   <Pane layoutX="59.0" layoutY="264.0" prefHeight="52.0" prefWidth="225.0">
                      <children>
-                        <Label layoutX="83.0" layoutY="18.0" text="PRODUCTS" />
+                        <Label layoutX="83.0" layoutY="18.0" onMouseClicked="#openProducts" text="PRODUCTS" />
                      </children>
                   </Pane>
                   <Pane layoutX="60.0" layoutY="316.0" prefHeight="52.0" prefWidth="225.0">
                      <children>
-                        <Label layoutX="86.0" layoutY="18.0" text="PAYMENT" />
+                        <Label layoutX="86.0" layoutY="18.0" onMouseClicked="#openPayment" text="PAYMENT" />
                      </children>
                   </Pane>
                   <Pane layoutX="60.0" layoutY="368.0" prefHeight="52.0" prefWidth="225.0">
                      <children>
-                        <Label layoutX="90.0" layoutY="18.0" text="ORDERS" />
+                        <Label layoutX="90.0" layoutY="18.0" onMouseClicked="#openOrders" text="ORDERS" />
                      </children>
                   </Pane>
                   <Pane layoutX="60.0" layoutY="420.0" prefHeight="52.0" prefWidth="225.0">
                      <children>
-                        <Label layoutX="91.0" layoutY="18.0" text="WALLET" />
+                        <Label layoutX="91.0" layoutY="18.0" onMouseClicked="#openWallet" text="WALLET" />
                      </children>
                   </Pane>
                   <Pane layoutX="60.0" layoutY="472.0" prefHeight="52.0" prefWidth="225.0">
                      <children>
-                        <Label layoutX="89.0" layoutY="18.0" text="HISTORY" />
+                        <Label layoutX="89.0" layoutY="18.0" onMouseClicked="#openHistory" text="HISTORY" />
                      </children>
                   </Pane>
                   <ImageView fitHeight="142.0" fitWidth="133.0" layoutX="105.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
@@ -121,7 +121,7 @@
                   </Pane>
                </children>
             </AnchorPane>
-            <Pane layoutX="294.0" layoutY="28.0" prefHeight="694.0" prefWidth="978.0" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0" />
+            <Pane fx:id="contentPane" layoutX="294.0" layoutY="28.0" prefHeight="694.0" prefWidth="978.0" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0" />
          </children>
         </AnchorPane>
    </top>
