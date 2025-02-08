@@ -24,7 +24,7 @@ public class MainFrameController {
     // Call this method when a menu button is clicked
     @FXML
     private void openHome() {
-        loadPage("/views/Home.fxml"); // Load Home.fxml
+        loadPage("/views/home.fxml"); // Load Home.fxml
     }
 
     @FXML

@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane styleClass="parent" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainFrameController">
    <top>
@@ -81,32 +82,50 @@
                      </children></AnchorPane>
                   <Pane layoutX="60.0" layoutY="212.0" prefHeight="52.0" prefWidth="225.0">
                      <children>
-                        <Label layoutX="95.0" layoutY="18.0" onMouseClicked="#openHome" text="HOME" />
+                        <Label layoutX="40.0" layoutY="14.0" onMouseClicked="#openHome" text="HOME" textFill="#5f6f52">
+                           <font>
+                              <Font name="Arial Unicode MS" size="18.0" />
+                           </font></Label>
                      </children>
                   </Pane>
                   <Pane layoutX="59.0" layoutY="264.0" prefHeight="52.0" prefWidth="225.0">
                      <children>
-                        <Label layoutX="83.0" layoutY="18.0" onMouseClicked="#openProducts" text="PRODUCTS" />
+                        <Label layoutX="40.0" layoutY="14.0" onMouseClicked="#openProducts" text="PRODUCTS" textFill="#5f6f52">
+                           <font>
+                              <Font name="Arial Unicode MS" size="18.0" />
+                           </font></Label>
                      </children>
                   </Pane>
                   <Pane layoutX="60.0" layoutY="316.0" prefHeight="52.0" prefWidth="225.0">
                      <children>
-                        <Label layoutX="86.0" layoutY="18.0" onMouseClicked="#openPayment" text="PAYMENT" />
+                        <Label layoutX="39.0" layoutY="14.0" onMouseClicked="#openPayment" text="PAYMENT" textFill="#5f6f52">
+                           <font>
+                              <Font name="Arial Unicode MS" size="18.0" />
+                           </font></Label>
                      </children>
                   </Pane>
                   <Pane layoutX="60.0" layoutY="368.0" prefHeight="52.0" prefWidth="225.0">
                      <children>
-                        <Label layoutX="90.0" layoutY="18.0" onMouseClicked="#openOrders" text="ORDERS" />
+                        <Label layoutX="37.0" layoutY="14.0" onMouseClicked="#openOrders" text="ORDERS" textFill="#5f6f52">
+                           <font>
+                              <Font name="Arial Unicode MS" size="18.0" />
+                           </font></Label>
                      </children>
                   </Pane>
                   <Pane layoutX="60.0" layoutY="420.0" prefHeight="52.0" prefWidth="225.0">
                      <children>
-                        <Label layoutX="91.0" layoutY="18.0" onMouseClicked="#openWallet" text="WALLET" />
+                        <Label layoutX="38.0" layoutY="14.0" onMouseClicked="#openWallet" text="WALLET" textFill="#5f6f52">
+                           <font>
+                              <Font name="Arial Unicode MS" size="18.0" />
+                           </font></Label>
                      </children>
                   </Pane>
                   <Pane layoutX="60.0" layoutY="472.0" prefHeight="52.0" prefWidth="225.0">
                      <children>
-                        <Label layoutX="89.0" layoutY="18.0" onMouseClicked="#openHistory" text="HISTORY" />
+                        <Label layoutX="38.0" layoutY="14.0" onMouseClicked="#openHistory" text="HISTORY" textFill="#5f6f52">
+                           <font>
+                              <Font name="Arial Unicode MS" size="18.0" />
+                           </font></Label>
                      </children>
                   </Pane>
                   <ImageView fitHeight="142.0" fitWidth="133.0" layoutX="105.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
