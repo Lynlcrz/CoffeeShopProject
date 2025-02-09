@@ -24,31 +24,31 @@ public class MainFrameController {
     // Call this method when a menu button is clicked
     @FXML
     private void openHome() {
-        loadPage("/views/home.fxml"); // Load Home.fxml
+        loadPage("/home/home.fxml"); // Load Home.fxml
     }
 
     @FXML
     private void openProducts() {
-        loadPage("/views/Products.fxml");
+        loadPage("/products/products.fxml");
     }
 
     @FXML
     private void openOrders() {
-        loadPage("/views/Orders.fxml");
+        loadPage("/orders/orders.fxml");
     }
 
     @FXML
     private void openPayment() {
-        loadPage("/views/Payment.fxml");
+        loadPage("/payment/payment.fxml");
     }
 
     @FXML
     private void openWallet() {
-        loadPage("/views/Wallet.fxml");
+        loadPage("/wallet/wallet.fxml");
     }
 
     @FXML
     private void openHistory() {
-        loadPage("/views/History.fxml");
+        loadPage("/history/history.fxml");
     }
 }
