@@ -135,12 +135,20 @@
                   </ImageView>
                   <Pane layoutX="59.0" layoutY="693.0" prefHeight="57.0" prefWidth="226.0">
                      <children>
-                        <Label layoutX="88.0" layoutY="20.0" text="LOG OUT" />
+                        <Label fx:id="Logout" layoutX="37.0" layoutY="16.0" onMouseClicked="#logout" text="LOG OUT" textFill="#5f6f52">
+                           <font>
+                              <Font name="Arial Unicode MS" size="18.0" />
+                           </font></Label>
                      </children>
                   </Pane>
                </children>
             </AnchorPane>
             <Pane fx:id="contentPane" layoutX="294.0" layoutY="28.0" prefHeight="694.0" prefWidth="978.0" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0" />
+            <ImageView fx:id="cancelScene" fitHeight="22.0" fitWidth="22.0" layoutX="1275.0" layoutY="3.0" onMouseClicked="#cancel">
+               <image>
+                  <Image url="@../../../../Downloads/cross.png" />
+               </image>
+            </ImageView>
          </children>
         </AnchorPane>
    </top>
