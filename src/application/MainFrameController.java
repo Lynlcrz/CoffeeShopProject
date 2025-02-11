@@ -118,5 +118,18 @@ public class MainFrameController {
     }
     
     
+    @FXML
+    public void minimizeWindow(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setIconified(true); 
+    }
+    
+    
+    @FXML
+    public void toggleMaximize(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setMaximized(!stage.isMaximized()); // Toggle between maximized and normal state
+    }
+    
 
 }

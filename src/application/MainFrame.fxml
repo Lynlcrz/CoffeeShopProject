@@ -12,9 +12,9 @@
    <top>
         <AnchorPane prefHeight="750.0" prefWidth="1300.0" styleClass="signUp" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane prefHeight="750.0" prefWidth="283.0" style="-fx-background-radius: 40;" styleClass="menuButton" stylesheets="@application.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane prefHeight="750.0" prefWidth="283.0" style="-fx-background-radius: 40;" styleClass="menuButton" stylesheets="@application.css" AnchorPane.leftAnchor="0.0">
                <children>
-                  <AnchorPane prefHeight="750.0" prefWidth="59.0" styleClass="iconHolder" stylesheets="@application.css">
+                  <AnchorPane prefHeight="750.0" prefWidth="59.0" styleClass="iconHolder" stylesheets="@application.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Pane layoutY="211.0" prefHeight="52.0" prefWidth="59.0">
                            <children>
@@ -143,12 +143,34 @@
                   </Pane>
                </children>
             </AnchorPane>
-            <Pane fx:id="contentPane" layoutX="294.0" layoutY="28.0" prefHeight="694.0" prefWidth="978.0" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0" />
-            <ImageView fx:id="cancelScene" fitHeight="22.0" fitWidth="22.0" layoutX="1270.0" layoutY="9.0" onMouseClicked="#cancel">
-               <image>
-                  <Image url="@../../../../Downloads/cross.png" />
-               </image>
-            </ImageView>
+            <Pane fx:id="contentPane" layoutX="291.0" layoutY="28.0" prefHeight="694.0" prefWidth="981.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="291.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0" />
+            <Pane layoutX="1203.0" layoutY="5.0" onMouseClicked="#minimizeWindow" prefHeight="22.0" prefWidth="22.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="5.0">
+               <children>
+                  <ImageView fitHeight="19.0" fitWidth="21.0" layoutY="1.0">
+                     <image>
+                        <Image url="@../../../../Downloads/minus.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="1235.0" layoutY="6.0" onMouseClicked="#toggleMaximize" prefHeight="19.0" prefWidth="20.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="6.0">
+               <children>
+                  <ImageView fitHeight="17.0" fitWidth="18.0" layoutX="1.0" layoutY="1.0">
+                     <image>
+                        <Image url="@../../../../Downloads/check-box-empty%20(1).png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="1267.0" layoutY="6.0" prefHeight="19.0" prefWidth="21.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="6.0">
+               <children>
+                  <ImageView fx:id="cancelScene" fitHeight="18.0" fitWidth="19.0" layoutY="1.0" onMouseClicked="#cancel">
+                     <image>
+                        <Image url="@../../../../Downloads/cross.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
         </AnchorPane>
    </top>
