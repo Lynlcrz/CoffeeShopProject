@@ -3,9 +3,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22">
+<AnchorPane prefHeight="694.0" prefWidth="978.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutX="-6.0" layoutY="-3.0" prefHeight="694.0" prefWidth="978.0" style="-fx-background-color: violet;" />
+      <Pane prefHeight="694.0" prefWidth="978.0">
+         <children>
+            <Pane layoutX="567.0" layoutY="25.0" prefHeight="644.0" prefWidth="392.0" style="-fx-background-color: lightgray;" />
+            <Pane layoutX="17.0" layoutY="25.0" prefHeight="644.0" prefWidth="538.0" style="-fx-background-color: lightgray;" />
+         </children></Pane>
    </children>
 </AnchorPane>
