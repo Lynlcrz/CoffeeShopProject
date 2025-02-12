@@ -5,6 +5,11 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutX="-9.0" layoutY="-6.0" prefHeight="694.0" prefWidth="978.0" style="-fx-background-color: yellow;" />
+      <Pane prefHeight="694.0" prefWidth="969.0">
+         <children>
+            <Pane layoutX="25.0" layoutY="27.0" prefHeight="216.0" prefWidth="920.0" style="-fx-background-color: lightgray;" />
+            <Pane layoutX="27.0" layoutY="259.0" prefHeight="409.0" prefWidth="483.0" style="-fx-background-color: lightgray;" />
+            <Pane layoutX="524.0" layoutY="260.0" prefHeight="409.0" prefWidth="421.0" style="-fx-background-color: lightgray;" />
+         </children></Pane>
    </children>
 </AnchorPane>
