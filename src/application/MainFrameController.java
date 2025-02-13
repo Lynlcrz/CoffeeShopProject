@@ -107,10 +107,13 @@ public class MainFrameController {
             // Get the current stage
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            // Set the login scene
-            currentStage.setScene(new Scene(loginPane));
-            currentStage.setTitle("Login");
-            currentStage.show(); // Ensure the stage updates
+            // Close the current stage
+            currentStage.close();
+
+            // Create a new stage for the login scene
+            Stage loginStage = new Stage();
+            loginStage.setScene(new Scene(loginPane));
+            loginStage.close();
 
         } catch (IOException e) {
             e.printStackTrace();
