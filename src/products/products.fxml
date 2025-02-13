@@ -5,6 +5,9 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane prefHeight="654.0" prefWidth="939.0" style="-fx-background-color: light gray;" />
+      <Pane prefHeight="694.0" prefWidth="978.0" style="-fx-background-color: light gray;">
+         <children>
+            <Pane layoutX="20.0" layoutY="20.0" prefHeight="654.0" prefWidth="939.0" style="-fx-background-color: lightgray;" />
+         </children></Pane>
    </children>
 </AnchorPane>
