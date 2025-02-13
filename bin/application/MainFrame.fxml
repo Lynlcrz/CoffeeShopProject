@@ -8,13 +8,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane styleClass="parent" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainFrameController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="parent" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainFrameController">
    <top>
         <AnchorPane prefHeight="750.0" prefWidth="1300.0" styleClass="signUp" stylesheets="@application.css" BorderPane.alignment="CENTER">
          <children>
             <AnchorPane prefHeight="750.0" prefWidth="283.0" style="-fx-background-radius: 40;" styleClass="menuButton" stylesheets="@application.css" AnchorPane.leftAnchor="0.0">
                <children>
-                  <AnchorPane prefHeight="750.0" prefWidth="59.0" styleClass="iconHolder" stylesheets="@application.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane prefHeight="750.0" prefWidth="59.0" styleClass="iconHolder" stylesheets="@application.css" AnchorPane.leftAnchor="0.0">
                      <children>
                         <Pane layoutY="211.0" prefHeight="52.0" prefWidth="59.0">
                            <children>
