@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="products.productsController">
    <children>
       <Pane prefHeight="694.0" prefWidth="978.0">
          <children>
@@ -21,7 +21,7 @@
                         <Label layoutX="20.0" layoutY="211.0" prefHeight="17.0" prefWidth="130.0" text="Description" />
                      </children>
                   </Pane>
-                  <Button fx:id="addProductButton" layoutX="412.0" layoutY="570.0" mnemonicParsing="false" onMouseClicked="#addProductButton" prefHeight="56.0" prefWidth="116.0" text="Button" />
+                  <Button fx:id="addProductButton" layoutX="412.0" layoutY="570.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="116.0" text="Button" />
                </children></Pane>
          </children></Pane>
    </children>

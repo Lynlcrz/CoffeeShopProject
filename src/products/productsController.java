@@ -31,25 +31,28 @@ public class productsController {
 
     @FXML
     public void initialize() {
-        addProductButton.setOnAction(event -> openAddProductForm());
+        if (addProductButton != null) {
+            addProductButton.setOnAction(event -> openAddProductForm());
+        } else {
+            System.out.println("addProductButton is NULL! Check FXML file.");
+        }
     }
 
     private void openAddProductForm() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/products/addProducts.fxml"));
-            loader.setController(this); // Use the same controller
             Parent root = loader.load();
             
             Stage stage = new Stage();
             stage.setTitle("Add Product");
             stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL); // Block main window
-            stage.showAndWait(); // Wait until closed
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
+    
     @FXML
     private void chooseImage() {
         FileChooser fileChooser = new FileChooser();
