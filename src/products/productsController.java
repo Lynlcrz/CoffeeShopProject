@@ -1,84 +1,110 @@
 package products;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.Button;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
 import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.io.IOException;
+import java.sql.*;
 
 public class productsController {
-    @FXML
-    private TextField productNameField;
-    @FXML
-    private TextField priceField;
-    @FXML
-    private TextArea descriptionArea;
-    @FXML
-    private TextField quantityField;
-    @FXML
-    private ImageView productImageView;
-    @FXML
-    private Button addProductButton;
+    
+    @FXML private Button addProductButton;
+    @FXML private TextField productNameField;
+    @FXML private TextField priceField;
+    @FXML private TextField quantityField;
+    @FXML private TextArea descriptionArea;
+    @FXML private Button uploadImageButton;
+    @FXML private Button saveButton;
 
     private File selectedImageFile;
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/your_database";
-    private static final String DB_USER = "your_username";
-    private static final String DB_PASSWORD = "your_password";
+    
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/coffeeshop";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = "";
+
+    @FXML
+    public void initialize() {
+        addProductButton.setOnAction(event -> openAddProductForm());
+    }
+
+    private void openAddProductForm() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/products/addProducts.fxml"));
+            loader.setController(this); // Use the same controller
+            Parent root = loader.load();
+            
+            Stage stage = new Stage();
+            stage.setTitle("Add Product");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL); // Block main window
+            stage.showAndWait(); // Wait until closed
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void chooseImage() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
         selectedImageFile = fileChooser.showOpenDialog(null);
+
         if (selectedImageFile != null) {
-            productImageView.setImage(new Image(selectedImageFile.toURI().toString()));
+            System.out.println("Selected image: " + selectedImageFile.getAbsolutePath());
         }
     }
 
     @FXML
-    private void addProduct() {
+    private void saveProductToDatabase() {
         String name = productNameField.getText();
-        String price = priceField.getText();
+        String priceText = priceField.getText();
+        String quantityText = quantityField.getText();
         String description = descriptionArea.getText();
-        String quantity = quantityField.getText();
-        
-        if (name.isEmpty() || price.isEmpty() || description.isEmpty() || quantity.isEmpty() || selectedImageFile == null) {
-            System.out.println("Please fill all fields and select an image.");
+        String imagePath = (selectedImageFile != null) ? selectedImageFile.getAbsolutePath() : "";
+
+        if (name.isEmpty() || priceText.isEmpty() || quantityText.isEmpty() || description.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Error", "All fields must be filled!");
             return;
         }
-        
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String sql = "INSERT INTO products (name, price, description, quantity, image_path) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, name);
-            stmt.setDouble(2, Double.parseDouble(price));
-            stmt.setString(3, description);
-            stmt.setInt(4, Integer.parseInt(quantity));
-            stmt.setString(5, selectedImageFile.getAbsolutePath());
-            
-            int rowsInserted = stmt.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("Product added successfully!");
-                clearFields();
+
+        try {
+            double price = Double.parseDouble(priceText);
+            int quantity = Integer.parseInt(quantityText);
+
+            try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+                String sql = "INSERT INTO products (name, price, quantity, description, image) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, name);
+                stmt.setDouble(2, price);
+                stmt.setInt(3, quantity);
+                stmt.setString(4, description);
+                stmt.setString(5, imagePath);
+
+                int rowsInserted = stmt.executeUpdate();
+                if (rowsInserted > 0) {
+                    showAlert(Alert.AlertType.INFORMATION, "Success", "Product added successfully!");
+                    ((Stage) saveButton.getScene().getWindow()).close(); // Close the window
+                }
             }
-        } catch (SQLException | NumberFormatException e) {
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Price and quantity must be numbers.");
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private void clearFields() {
-        productNameField.clear();
-        priceField.clear();
-        descriptionArea.clear();
-        quantityField.clear();
-        productImageView.setImage(null);
-        selectedImageFile = null;
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
