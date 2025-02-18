@@ -9,7 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
+import products.productsController;
 import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.util.Optional;
@@ -43,8 +43,27 @@ public class MainFrameController {
 
     @FXML
     private void openProducts() {
-        loadPage("/products/products.fxml");
+        try {
+            // Load the products.fxml file using FXMLLoader
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/products/products.fxml"));
+            Parent productsPage = loader.load();  // Load the FXML file
+            
+            // Get the controller instance from the FXMLLoader
+            productsController controller = loader.getController();
+
+            // Load product with ID 1 (or any valid product ID)
+            controller.loadProduct(1);
+
+            // Clear the contentPane and add the new page (products.fxml)
+            contentPane.getChildren().clear(); // Clear existing content
+            contentPane.getChildren().add(productsPage); // Add the new page to contentPane
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+ 
 
     @FXML
     private void openOrders() {

@@ -1,11 +1,14 @@
 package products;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -32,23 +35,37 @@ public class productsController {
     @FXML private Label quantityLabel;
     @FXML private Label descriptionLabel;
     @FXML private ImageView productImageView;
+    @FXML private Pane productsPane;
+
 
     private File selectedImageFile;
 
     @FXML
     public void initialize() {
-        if (addProductButton != null) {
+    	if (addProductButton != null) {
             addProductButton.setOnAction(event -> openAddProductForm());
         } else {
             System.out.println("addProductButton is NULL! Check FXML file.");
         }
-    }
 
+    
+    
+    System.out.println("Initializing Controller...");
+    if (productNameLabel == null) System.out.println("productNameLabel is NULL");
+    if (priceLabel == null) System.out.println("priceLabel is NULL");
+    if (quantityLabel == null) System.out.println("quantityLabel is NULL");
+    if (descriptionLabel == null) System.out.println("descriptionLabel is NULL");
+    if (productImageView == null) System.out.println("productImageView is NULL");
+    
+    }
+    
+    
     private void openAddProductForm() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/products/addProducts.fxml"));
             Parent root = loader.load();
 
+            
             Stage stage = new Stage();
             stage.setTitle("Add Product");
             stage.setScene(new Scene(root));
@@ -65,23 +82,28 @@ public class productsController {
 
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
              PreparedStatement statement = connection.prepareStatement(query)) {
+            
+            // Verify the connection is valid
+            if (connection.isValid(1)) {
+                System.out.println("Database connection successful.");
+            } else {
+                System.out.println("Database connection failed.");
+                return null;
+            }
 
-            System.out.println("Connecting to database...");  // Debugging line
-
-            statement.setInt(1, Id);  // Set the productId as a parameter in the query
+            statement.setInt(1, Id);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                product = new productsModel(
-                        resultSet.getString("name"),
-                        resultSet.getFloat("price"),
-                        resultSet.getInt("quantity"),
-                        resultSet.getString("description"),
-                        resultSet.getString("image")
-                );
-                System.out.println("Product fetched: " + product.getName());  // Debugging line
+                String name = resultSet.getString("name");
+                float price = resultSet.getFloat("price");
+                int quantity = resultSet.getInt("quantity");
+                String description = resultSet.getString("description");
+                String image = resultSet.getString("image");
+
+                product = new productsModel(name, price, quantity, description, image);
             } else {
-                System.out.println("No product found with Id: " + Id);  // Debugging line
+                System.out.println("No product found with Id: " + Id);
             }
         } catch (SQLException e) {
             System.err.println("Error retrieving product details: " + e.getMessage());
@@ -91,31 +113,38 @@ public class productsController {
         return product;
     }
 
-    private void updateProductDetails(int Id) {
-        System.out.println("Updating product details for ID: " + Id);  // Debugging line
-        productsModel product = getProductDetailsFromDatabase(Id);  // Fetch product from database
+    // Update product details on the UI
+    public void updateProductDetails(int Id) {
+        System.out.println("Updating product details for ID: " + Id);
+        productsModel product = getProductDetailsFromDatabase(Id);
 
         if (product != null) {
-            System.out.println("Product found: " + product.getName());  // Debugging line
-            String name = product.getName();
-            String priceText = String.valueOf(product.getPrice());
-            String quantityText = String.valueOf(product.getQuantity());
-            String description = product.getDescription();
-            String image = product.getImage();  // Retrieve the image path from the database
+            Platform.runLater(() -> {
+                productNameLabel.setText(product.getName());
+                priceLabel.setText("" + product.getPrice());
+                quantityLabel.setText("" + product.getQuantity());
+                descriptionLabel.setText(product.getDescription());
 
-            // Update labels with product information
-            productNameLabel.setText("Product Name: " + name);
-            priceLabel.setText("Price: " + priceText);
-            quantityLabel.setText("Quantity: " + quantityText);
-            descriptionLabel.setText("Description: " + description);
-
-            // Update ImageView with selected image
-            if (image != null && !image.isEmpty()) {
-                System.out.println("Displaying image from: " + image);  // Debugging line
-                productImageView.setImage(new javafx.scene.image.Image("file:" + image));
-            }
+                if (product.getImage() != null && !product.getImage().isEmpty()) {
+                    try {
+                        System.out.println("Displaying image from: " + product.getImage());
+                        productImageView.setImage(new Image("file:" + product.getImage()));
+                    } catch (Exception e) {
+                        System.err.println("Error loading image: " + e.getMessage());
+                    }
+                } else {
+                    System.out.println("No image available for this product.");
+                    productImageView.setImage(null);
+                }
+            });
         } else {
-            System.out.println("No product found for ID: " + Id);
+            Platform.runLater(() -> {
+                productNameLabel.setText("Product Name: ");
+                priceLabel.setText("Price: ");
+                quantityLabel.setText("Quantity: ");
+                descriptionLabel.setText("Description: ");
+                productImageView.setImage(null);
+            });
         }
     }
 
@@ -130,7 +159,7 @@ public class productsController {
         if (selectedFile != null) {
             System.out.println("Selected image: " + selectedFile.getAbsolutePath());
             this.selectedImageFile = selectedFile;  // Save the selected image file
-            uploadImageButton.setImage(new javafx.scene.image.Image("file:" + selectedFile.getAbsolutePath())); // Display image in ImageView
+            uploadImageButton.setImage(new Image("file:" + selectedFile.getAbsolutePath())); // Display image in ImageView
         }
     }
 
@@ -181,9 +210,13 @@ public class productsController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
+    
+    
+  
     // Call this method with the correct product ID to update the labels and image
-    public void showProductDetails(int Id) {
-        updateProductDetails(Id);
+    public void loadProduct(int productId) {
+        updateProductDetails(productId);
+        
+       
     }
 }
