@@ -8,7 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -36,6 +38,12 @@ public class productsController {
     @FXML private Label descriptionLabel;
     @FXML private ImageView productImageView;
     @FXML private Pane productsPane;
+  
+    @FXML
+    private HBox productContainer; // Make sure this is added in your FXML
+
+    private static final int COLUMNS = 4;
+
 
 
     private File selectedImageFile;
@@ -49,7 +57,8 @@ public class productsController {
         }
 
     
-    
+    	loadProductsFromDatabase();
+    	
     System.out.println("Initializing Controller...");
     if (productNameLabel == null) System.out.println("productNameLabel is NULL");
     if (priceLabel == null) System.out.println("priceLabel is NULL");
@@ -113,6 +122,81 @@ public class productsController {
         return product;
     }
 
+    
+    
+    
+    
+    
+    
+    private void loadProductsFromDatabase() {
+        String query = "SELECT name, price, quantity, description, image FROM products";
+
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            HBox rowBox = new HBox(10); // Row container
+            productContainer.getChildren().clear(); // Clear previous products
+            productContainer.getChildren().add(rowBox); // Add first row
+
+            int count = 0;
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
+                float price = resultSet.getFloat("price");
+                int quantity = resultSet.getInt("quantity");
+                String description = resultSet.getString("description");
+                String imagePath = resultSet.getString("image");
+
+                VBox productPane = createProductPane(name, price, quantity, description, imagePath);
+                rowBox.getChildren().add(productPane);
+                count++;
+
+                if (count % COLUMNS == 0) {
+                    rowBox = new HBox(10); // Create a new row
+                    productContainer.getChildren().add(rowBox);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private VBox createProductPane(String name, float price, int quantity, String description, String imagePath) {
+        VBox productPane = new VBox();
+        productPane.setStyle("-fx-padding: 10; -fx-border-color: black; -fx-border-width: 1; -fx-spacing: 5; -fx-alignment: center;");
+        productPane.setPrefSize(200, 250); // Set a reasonable size
+
+        Label nameLabel = new Label(name);
+        nameLabel.setStyle("-fx-font-weight: bold;");
+
+        Label priceLabel = new Label("₱" + price);
+        Label quantityLabel = new Label("Stock: " + quantity);
+        Label descriptionLabel = new Label(description);
+        descriptionLabel.setWrapText(true);
+
+        ImageView imageView = new ImageView();
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(100);
+        if (imagePath != null && !imagePath.isEmpty()) {
+            imageView.setImage(new Image("file:" + imagePath));
+        }
+
+        productPane.getChildren().addAll(imageView, nameLabel, priceLabel, quantityLabel, descriptionLabel);
+        return productPane;
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     // Update product details on the UI
     public void updateProductDetails(int Id) {
         System.out.println("Updating product details for ID: " + Id);

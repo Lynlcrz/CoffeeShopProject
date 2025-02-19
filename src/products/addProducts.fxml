@@ -24,12 +24,10 @@
             <TextField fx:id="quantityField" layoutX="148.0" layoutY="217.0" prefHeight="25.0" prefWidth="63.0" />
             <TextArea fx:id="descriptionArea" layoutX="66.0" layoutY="258.0" prefHeight="67.0" prefWidth="142.0" />
             <Button fx:id="saveButton" layoutX="110.0" layoutY="332.0" mnemonicParsing="false" onMouseClicked="#saveProductToDatabase" text="Save" />
-            <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="112.0" layoutY="95.0" onMouseClicked="#chooseImage">
+            <ImageView fx:id="uploadImageButton" fitHeight="101.0" fitWidth="205.0" layoutX="86.0" layoutY="65.0" onMouseClicked="#chooseImage" opacity="0.39" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../Downloads/plus.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="uploadImageButton" fitHeight="101.0" fitWidth="120.0" layoutX="72.0" layoutY="64.0" onMouseClicked="#chooseImage" pickOnBounds="true" preserveRatio="true" />
+               </image></ImageView>
          </children>
       </Pane>
    </children>
