@@ -48,12 +48,6 @@ public class MainFrameController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/products/products.fxml"));
             Parent productsPage = loader.load();  // Load the FXML file
             
-            // Get the controller instance from the FXMLLoader
-            productsController controller = loader.getController();
-
-            // Load product with ID 1 (or any valid product ID)
-            controller.loadProduct(1);
-
             // Clear the contentPane and add the new page (products.fxml)
             contentPane.getChildren().clear(); // Clear existing content
             contentPane.getChildren().add(productsPage); // Add the new page to contentPane

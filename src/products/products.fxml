@@ -12,9 +12,9 @@
          <children>
             <Pane fx:id="productsPane" layoutX="20.0" layoutY="20.0" prefHeight="654.0" prefWidth="939.0" style="-fx-background-color: #D3D3D3;">
                <children>
-                  <Button fx:id="addProductButton" layoutX="412.0" layoutY="570.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="116.0" text="Button" />
                   <ScrollBar layoutX="942.0" orientation="VERTICAL" prefHeight="654.0" prefWidth="14.0" />
-                  <HBox fx:id="productContainer" prefHeight="654.0" prefWidth="939.0" />
+                  <HBox fx:id="productContainer" layoutX="20.0" layoutY="-1.0" prefHeight="236.0" prefWidth="919.0" spacing="10" />
+                  <Button fx:id="addProductButton" layoutX="412.0" layoutY="584.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="116.0" text="Button" />
                </children></Pane>
          </children></Pane>
    </children>

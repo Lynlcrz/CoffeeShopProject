@@ -1,6 +1,6 @@
 package products;
 
-import javafx.application.Platform;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -57,16 +57,24 @@ public class productsController {
         }
 
     
-    	loadProductsFromDatabase();
+    	    System.out.println("Initializing Controller...");
+
+    	    if (addProductButton == null) {
+    	        System.out.println("ERROR: addProductButton is NULL! Check FXML file.");
+    	    } else {
+    	        addProductButton.setOnAction(event -> openAddProductForm());
+    	    }
+
+    	    if (productContainer == null) {
+    	        System.out.println("ERROR: productContainer is NULL! Check FXML file.");
+    	    } else {
+    	        loadProductsFromDatabase();
+    	    }
+    	}
+
     	
-    System.out.println("Initializing Controller...");
-    if (productNameLabel == null) System.out.println("productNameLabel is NULL");
-    if (priceLabel == null) System.out.println("priceLabel is NULL");
-    if (quantityLabel == null) System.out.println("quantityLabel is NULL");
-    if (descriptionLabel == null) System.out.println("descriptionLabel is NULL");
-    if (productImageView == null) System.out.println("productImageView is NULL");
     
-    }
+    
     
     
     private void openAddProductForm() {
@@ -85,75 +93,45 @@ public class productsController {
         }
     }
 
-    public productsModel getProductDetailsFromDatabase(int Id) {
-        productsModel product = null;
-        String query = "SELECT name, price, quantity, description, image FROM products WHERE id = ?";
-
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            
-            // Verify the connection is valid
-            if (connection.isValid(1)) {
-                System.out.println("Database connection successful.");
-            } else {
-                System.out.println("Database connection failed.");
-                return null;
-            }
-
-            statement.setInt(1, Id);
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                String name = resultSet.getString("name");
-                float price = resultSet.getFloat("price");
-                int quantity = resultSet.getInt("quantity");
-                String description = resultSet.getString("description");
-                String image = resultSet.getString("image");
-
-                product = new productsModel(name, price, quantity, description, image);
-            } else {
-                System.out.println("No product found with Id: " + Id);
-            }
-        } catch (SQLException e) {
-            System.err.println("Error retrieving product details: " + e.getMessage());
-            e.printStackTrace();
+    
+   
+    private void loadProductsFromDatabase() {
+        if (productContainer == null) {
+            System.out.println("ERROR: productContainer is NULL! Cannot load products.");
+            return;
         }
 
-        return product;
-    }
-
-    
-    
-    
-    
-    
-    
-    private void loadProductsFromDatabase() {
         String query = "SELECT name, price, quantity, description, image FROM products";
 
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
 
-            HBox rowBox = new HBox(10); // Row container
             productContainer.getChildren().clear(); // Clear previous products
-            productContainer.getChildren().add(rowBox); // Add first row
+            VBox mainContainer = new VBox(10); // Main container (VBox) to hold multiple rows
+            productContainer.getChildren().add(mainContainer); // Add VBox to root
+
+            HBox rowBox = new HBox(10); // First row
+            mainContainer.getChildren().add(rowBox); // Add first row to VBox
 
             int count = 0;
             while (resultSet.next()) {
+                // Retrieve product details
                 String name = resultSet.getString("name");
                 float price = resultSet.getFloat("price");
                 int quantity = resultSet.getInt("quantity");
                 String description = resultSet.getString("description");
                 String imagePath = resultSet.getString("image");
 
+                // Create product panel
                 VBox productPane = createProductPane(name, price, quantity, description, imagePath);
-                rowBox.getChildren().add(productPane);
+                rowBox.getChildren().add(productPane); // Add panel to current row
                 count++;
 
-                if (count % COLUMNS == 0) {
-                    rowBox = new HBox(10); // Create a new row
-                    productContainer.getChildren().add(rowBox);
+                // **If 4 items are in this row, create a new row below**
+                if (count % 4 == 0) { 
+                    rowBox = new HBox(10); // Create new row
+                    mainContainer.getChildren().add(rowBox); // Add new row to VBox
                 }
             }
 
@@ -161,6 +139,9 @@ public class productsController {
             e.printStackTrace();
         }
     }
+
+
+
 
     private VBox createProductPane(String name, float price, int quantity, String description, String imagePath) {
         VBox productPane = new VBox();
@@ -197,40 +178,6 @@ public class productsController {
     
     
     
-    // Update product details on the UI
-    public void updateProductDetails(int Id) {
-        System.out.println("Updating product details for ID: " + Id);
-        productsModel product = getProductDetailsFromDatabase(Id);
-
-        if (product != null) {
-            Platform.runLater(() -> {
-                productNameLabel.setText(product.getName());
-                priceLabel.setText("" + product.getPrice());
-                quantityLabel.setText("" + product.getQuantity());
-                descriptionLabel.setText(product.getDescription());
-
-                if (product.getImage() != null && !product.getImage().isEmpty()) {
-                    try {
-                        System.out.println("Displaying image from: " + product.getImage());
-                        productImageView.setImage(new Image("file:" + product.getImage()));
-                    } catch (Exception e) {
-                        System.err.println("Error loading image: " + e.getMessage());
-                    }
-                } else {
-                    System.out.println("No image available for this product.");
-                    productImageView.setImage(null);
-                }
-            });
-        } else {
-            Platform.runLater(() -> {
-                productNameLabel.setText("Product Name: ");
-                priceLabel.setText("Price: ");
-                quantityLabel.setText("Quantity: ");
-                descriptionLabel.setText("Description: ");
-                productImageView.setImage(null);
-            });
-        }
-    }
 
     @FXML
     private void chooseImage() {
@@ -297,10 +244,4 @@ public class productsController {
     
     
   
-    // Call this method with the correct product ID to update the labels and image
-    public void loadProduct(int productId) {
-        updateProductDetails(productId);
-        
-       
-    }
 }
