@@ -66,7 +66,18 @@ public class MainFrameController {
 
     @FXML
     private void openPayment() {
-        loadPage("/payment/payment.fxml");
+        try {
+            // Load the products.fxml file using FXMLLoader
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/payment/payment.fxml"));
+            Parent paymentPage = loader.load();  // Load the FXML file
+            
+            // Clear the contentPane and add the new page (products.fxml)
+            contentPane.getChildren().clear(); // Clear existing content
+            contentPane.getChildren().add(paymentPage); // Add the new page to contentPane
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
