@@ -1,8 +1,10 @@
 package products;
 
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -10,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -38,7 +41,7 @@ public class productsController {
     @FXML private Label descriptionLabel;
     @FXML private ImageView productImageView;
     @FXML private Pane productsPane;
-  
+    private ScrollPane productScrollPane;
     @FXML
     private HBox productContainer; // Make sure this is added in your FXML
 
@@ -70,10 +73,26 @@ public class productsController {
     	    } else {
     	        loadProductsFromDatabase();
     	    }
-    	}
+    	    
+    	    
+    	    
+    	    if (productScrollPane == null) {
+    	        System.out.println("ERROR: productScrollPane is NULL! Check FXML file.");
+    	    } else {
+    	        Platform.runLater(() -> {
+    	            productScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS); // Enable vertical scrolling
+    	            productScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);  // Disable horizontal scrolling
+    	            productScrollPane.setFitToHeight(true);
+    	        });
+    	    }
 
-    	
-    
+    	    if (productContainer == null) {
+    	        System.out.println("ERROR: productContainer is NULL! Check FXML file.");
+    	    } else {
+    	        productContainer.setPrefWidth(Region.USE_COMPUTED_SIZE); // Allow height to expand
+    	        loadProductsFromDatabase();
+    	    }
+    	}
     
     
     
@@ -94,7 +113,8 @@ public class productsController {
     }
 
     
-   
+    
+    
     private void loadProductsFromDatabase() {
         if (productContainer == null) {
             System.out.println("ERROR: productContainer is NULL! Cannot load products.");

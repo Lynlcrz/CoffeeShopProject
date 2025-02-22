@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -10,10 +10,13 @@
    <children>
       <Pane prefHeight="694.0" prefWidth="978.0">
          <children>
-            <Pane fx:id="productsPane" layoutX="20.0" layoutY="20.0" prefHeight="654.0" prefWidth="939.0" style="-fx-background-color: #D3D3D3;">
+            <Pane fx:id="productsPane" layoutX="20.0" layoutY="20.0" prefHeight="654.0" prefWidth="939.0">
                <children>
-                  <ScrollBar layoutX="942.0" orientation="VERTICAL" prefHeight="654.0" prefWidth="14.0" />
-                  <HBox fx:id="productContainer" layoutX="20.0" layoutY="-1.0" prefHeight="236.0" prefWidth="919.0" spacing="10" />
+                  <ScrollPane fx:id="productScrollPane" hbarPolicy="NEVER" layoutX="21.0" opacity="0.0" pannable="true" prefHeight="654.0" prefWidth="918.0" vbarPolicy="ALWAYS">
+                     <content>
+                        <HBox fx:id="productContainer" prefHeight="236.0" prefWidth="937.0" spacing="10" />
+                     </content>
+                  </ScrollPane>
                   <Button fx:id="addProductButton" layoutX="412.0" layoutY="584.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="116.0" text="Button" />
                </children></Pane>
          </children></Pane>
