@@ -23,6 +23,15 @@ public class paymentController {
     @FXML
     public void initialize() {
         loadProductsFromDatabase();
+        try {
+            scrollProducts.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // Disable horizontal scrolling
+            scrollProducts.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS); // Enable vertical scrolling
+            productContainer.setPrefWidth(scrollProducts.getPrefViewportWidth()); // Ensure no horizontal overflow
+            loadProductsFromDatabase();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Error initializing paymentController: " + e.getMessage());
+        }
     }
 
     private void loadProductsFromDatabase() {
