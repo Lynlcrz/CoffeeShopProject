@@ -22,11 +22,10 @@ public class paymentController {
 
     @FXML
     public void initialize() {
-        loadProductsFromDatabase();
         try {
-            scrollProducts.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // Disable horizontal scrolling
-            scrollProducts.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS); // Enable vertical scrolling
-            productContainer.setPrefWidth(scrollProducts.getPrefViewportWidth()); // Ensure no horizontal overflow
+            scrollProducts.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            scrollProducts.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+            scrollProducts.setContent(productContainer); // Ensure VBox is inside ScrollPane
             loadProductsFromDatabase();
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,6 +52,7 @@ public class paymentController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            System.err.println("Database error: " + e.getMessage());
         }
     }
 
@@ -63,8 +63,12 @@ public class paymentController {
         ImageView imageView = new ImageView();
         imageView.setFitWidth(50);
         imageView.setFitHeight(50);
-        if (imagePath != null && !imagePath.isEmpty()) {
-            imageView.setImage(new Image("file:" + imagePath));
+        try {
+            if (imagePath != null && !imagePath.isEmpty()) {
+                imageView.setImage(new Image("file:" + imagePath));
+            }
+        } catch (Exception e) {
+            System.err.println("Error loading image: " + imagePath);
         }
 
         Label nameLabel = new Label(name);

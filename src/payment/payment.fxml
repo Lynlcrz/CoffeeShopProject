@@ -10,14 +10,11 @@
       <Pane prefHeight="694.0" prefWidth="978.0">
          <children>
             <Pane layoutX="567.0" layoutY="25.0" prefHeight="644.0" prefWidth="392.0" style="-fx-background-color: lightgray;" />
-            <Pane layoutX="17.0" layoutY="25.0" prefHeight="644.0" prefWidth="538.0" style="-fx-background-color: lightgray;">
-               <children>
-                  <ScrollPane fx:id="scrollProducts" hbarPolicy="NEVER" opacity="0.0" prefHeight="644.0" prefWidth="538.0" vbarPolicy="ALWAYS">
-                     <content>
-                        <VBox fx:id="productContainer" prefHeight="641.0" prefWidth="535.0" />
-                     </content>
-                  </ScrollPane>
-               </children></Pane>
+            <ScrollPane fx:id="scrollProducts" layoutX="18.0" layoutY="26.0" prefHeight="644.0" prefWidth="529.0">
+               <content>
+                  <VBox fx:id="productContainer" prefHeight="645.0" prefWidth="527.0" />
+               </content>
+            </ScrollPane>
          </children></Pane>
    </children>
 </AnchorPane>
