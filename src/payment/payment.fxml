@@ -9,9 +9,9 @@
    <children>
       <Pane prefHeight="694.0" prefWidth="978.0">
          <children>
-            <ScrollPane fx:id="scrollProducts" hbarPolicy="NEVER" layoutX="20.0" layoutY="25.0" opacity="0.0" prefHeight="644.0" prefWidth="524.0" vbarPolicy="ALWAYS">
+            <ScrollPane fx:id="scrollProducts" hbarPolicy="NEVER" layoutX="19.0" layoutY="27.0" prefHeight="644.0" prefWidth="527.0" vbarPolicy="ALWAYS">
                <content>
-                  <VBox fx:id="productContainer" prefHeight="643.0" prefWidth="520.0" />
+                  <VBox fx:id="productContainer" prefHeight="643.0" prefWidth="525.0" />
                </content>
             </ScrollPane>
             <Pane layoutX="567.0" layoutY="25.0" prefHeight="644.0" prefWidth="392.0" style="-fx-background-color: lightgray;" />

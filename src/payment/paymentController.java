@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import java.io.File;
 import java.sql.*;
 
 public class paymentController {
@@ -22,6 +23,11 @@ public class paymentController {
 
     @FXML
     public void initialize() {
+        System.out.println("Initializing Controller...");
+        if (productContainer == null) {
+            System.out.println("ERROR: productContainer is null! Check FXML.");
+            return;
+        }
         loadProductsFromDatabase();
     }
 
@@ -34,14 +40,25 @@ public class paymentController {
 
             productContainer.getChildren().clear(); // Clear previous products
 
+            boolean hasProducts = false;
+
             while (resultSet.next()) {
+                hasProducts = true;
                 String name = resultSet.getString("name");
                 float price = resultSet.getFloat("price");
                 String imagePath = resultSet.getString("image");
 
+                System.out.println("Adding product: " + name);
+                System.out.println("Image path from DB: " + imagePath);
+
                 HBox productBox = createProductBox(name, price, imagePath);
                 productContainer.getChildren().add(productBox);
             }
+
+            if (!hasProducts) {
+                System.out.println("No products found in the database.");
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -54,8 +71,17 @@ public class paymentController {
         ImageView imageView = new ImageView();
         imageView.setFitWidth(50);
         imageView.setFitHeight(50);
+
+        // Check if imagePath is valid
         if (imagePath != null && !imagePath.isEmpty()) {
-            imageView.setImage(new Image("file:" + imagePath));
+            File imageFile = new File(imagePath);
+            if (imageFile.exists()) {
+                imageView.setImage(new Image(imageFile.toURI().toString()));
+            } else {
+                System.out.println("WARNING: Image file not found: " + imagePath);
+            }
+        } else {
+            System.out.println("WARNING: No image path provided for product: " + name);
         }
 
         Label nameLabel = new Label(name);
@@ -64,4 +90,4 @@ public class paymentController {
         productBox.getChildren().addAll(imageView, nameLabel, priceLabel);
         return productBox;
     }
-} 
+}

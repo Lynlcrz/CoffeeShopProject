@@ -1,6 +1,5 @@
 package products;
 
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -39,87 +37,56 @@ public class productsController {
     @FXML private Label quantityLabel;
     @FXML private Label descriptionLabel;
     @FXML private ImageView productImageView;
-    @FXML private Pane productsPane;
-    private ScrollPane productScrollPane;
-    @FXML
-    private HBox productContainer; // Make sure this is added in your FXML
+    @FXML private ScrollPane productScrollPane;
+    @FXML private HBox productContainer;
 
     private static final int COLUMNS = 4;
-
-
-
     private File selectedImageFile;
 
     @FXML
     public void initialize() {
-    	if (addProductButton != null) {
-            addProductButton.setOnAction(event -> openAddProductForm());
+        System.out.println("Initializing Controller...");
+
+        if (addProductButton == null) {
+            System.out.println("ERROR: addProductButton is NULL! Check FXML file.");
         } else {
-            System.out.println("addProductButton is NULL! Check FXML file.");
+            addProductButton.setOnAction(event -> openAddProductForm());
         }
 
-    
-    	    System.out.println("Initializing Controller...");
+        if (productContainer == null) {
+            System.out.println("ERROR: productContainer is NULL! Check FXML file.");
+        } else {
+            System.out.println("Product container found. Loading products...");
+            loadProductsFromDatabase();
+        }
 
-    	    if (addProductButton == null) {
-    	        System.out.println("ERROR: addProductButton is NULL! Check FXML file.");
-    	    } else {
-    	        addProductButton.setOnAction(event -> openAddProductForm());
-    	    }
+        if (productScrollPane == null) {
+            System.out.println("ERROR: productScrollPane is NULL! Check FXML file.");
+        } else {
+            Platform.runLater(() -> {
+                productScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS); // Enable scrolling
+                productScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+                productScrollPane.setFitToHeight(true);
+            });
+        }
+    }
 
-    	    if (productContainer == null) {
-    	        System.out.println("ERROR: productContainer is NULL! Check FXML file.");
-    	    } else {
-    	        loadProductsFromDatabase();
-    	    }
-    	    
-    	    
-    	    
-    	    if (productScrollPane == null) {
-    	        System.out.println("ERROR: productScrollPane is NULL! Check FXML file.");
-    	    } else {
-    	        Platform.runLater(() -> {
-    	            productScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS); // Enable vertical scrolling
-    	            productScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);  // Disable horizontal scrolling
-    	            productScrollPane.setFitToHeight(true);
-    	        });
-    	    }
-
-    	    if (productContainer == null) {
-    	        System.out.println("ERROR: productContainer is NULL! Check FXML file.");
-    	    } else {
-    	        productContainer.setPrefWidth(Region.USE_COMPUTED_SIZE); // Allow height to expand
-    	        loadProductsFromDatabase();
-    	    }
-    	}
-    
-    
-    
     private void openAddProductForm() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/products/addProducts.fxml"));
             Parent root = loader.load();
-
-            
             Stage stage = new Stage();
             stage.setTitle("Add Product");
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
+            loadProductsFromDatabase();  // Refresh products after adding
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    
-    
-    
     private void loadProductsFromDatabase() {
-        if (productContainer == null) {
-            System.out.println("ERROR: productContainer is NULL! Cannot load products.");
-            return;
-        }
-
         String query = "SELECT name, price, quantity, description, image FROM products";
 
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
@@ -127,49 +94,48 @@ public class productsController {
              ResultSet resultSet = statement.executeQuery(query)) {
 
             productContainer.getChildren().clear(); // Clear previous products
-            VBox mainContainer = new VBox(10); // Main container (VBox) to hold multiple rows
-            productContainer.getChildren().add(mainContainer); // Add VBox to root
-
-            HBox rowBox = new HBox(10); // First row
-            mainContainer.getChildren().add(rowBox); // Add first row to VBox
+            HBox rowBox = new HBox(10);
+            productContainer.getChildren().add(rowBox);
 
             int count = 0;
             while (resultSet.next()) {
-                // Retrieve product details
                 String name = resultSet.getString("name");
                 float price = resultSet.getFloat("price");
                 int quantity = resultSet.getInt("quantity");
                 String description = resultSet.getString("description");
                 String imagePath = resultSet.getString("image");
 
-                // Create product panel
+                System.out.println("Adding product: " + name);
+                if (imagePath != null && !imagePath.isEmpty()) {
+                    System.out.println("Loading image: " + imagePath);
+                } else {
+                    System.out.println("No image found for " + name);
+                }
+
                 VBox productPane = createProductPane(name, price, quantity, description, imagePath);
-                rowBox.getChildren().add(productPane); // Add panel to current row
+                rowBox.getChildren().add(productPane);
                 count++;
 
-                // **If 4 items are in this row, create a new row below**
-                if (count % 4 == 0) { 
-                    rowBox = new HBox(10); // Create new row
-                    mainContainer.getChildren().add(rowBox); // Add new row to VBox
+                if (count % COLUMNS == 0) {
+                    rowBox = new HBox(10);
+                    productContainer.getChildren().add(rowBox);
                 }
             }
+
+            Platform.runLater(() -> productContainer.requestLayout());
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-
-
-
     private VBox createProductPane(String name, float price, int quantity, String description, String imagePath) {
         VBox productPane = new VBox();
         productPane.setStyle("-fx-padding: 10; -fx-border-color: black; -fx-border-width: 1; -fx-spacing: 5; -fx-alignment: center;");
-        productPane.setPrefSize(200, 250); // Set a reasonable size
+        productPane.setPrefSize(230, 270);
 
         Label nameLabel = new Label(name);
         nameLabel.setStyle("-fx-font-weight: bold;");
-
         Label priceLabel = new Label("₱" + price);
         Label quantityLabel = new Label("Stock: " + quantity);
         Label descriptionLabel = new Label(description);
@@ -179,37 +145,28 @@ public class productsController {
         imageView.setFitWidth(100);
         imageView.setFitHeight(100);
         if (imagePath != null && !imagePath.isEmpty()) {
-            imageView.setImage(new Image("file:" + imagePath));
+            File file = new File(imagePath);
+            if (file.exists()) {
+                imageView.setImage(new Image(file.toURI().toString()));
+            } else {
+                System.out.println("Image file not found: " + imagePath);
+            }
         }
 
         productPane.getChildren().addAll(imageView, nameLabel, priceLabel, quantityLabel, descriptionLabel);
         return productPane;
     }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
     @FXML
     private void chooseImage() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(
-            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
 
         File selectedFile = fileChooser.showOpenDialog(uploadImageButton.getScene().getWindow());
-
         if (selectedFile != null) {
             System.out.println("Selected image: " + selectedFile.getAbsolutePath());
-            this.selectedImageFile = selectedFile;  // Save the selected image file
-            uploadImageButton.setImage(new Image("file:" + selectedFile.getAbsolutePath())); // Display image in ImageView
+            this.selectedImageFile = selectedFile;
+            uploadImageButton.setImage(new Image("file:" + selectedFile.getAbsolutePath()));
         }
     }
 
@@ -242,7 +199,8 @@ public class productsController {
                 int rowsInserted = stmt.executeUpdate();
                 if (rowsInserted > 0) {
                     showAlert(Alert.AlertType.INFORMATION, "Success", "Product added successfully!");
-                    ((Stage) saveButton.getScene().getWindow()).close(); // Close the window
+                    ((Stage) saveButton.getScene().getWindow()).close();
+                    loadProductsFromDatabase();
                 }
             }
         } catch (NumberFormatException e) {
@@ -260,7 +218,4 @@ public class productsController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-    
-    
-  
 }
