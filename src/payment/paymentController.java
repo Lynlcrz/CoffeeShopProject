@@ -23,11 +23,18 @@ public class paymentController {
 
     @FXML
     public void initialize() {
-        System.out.println("Initializing Controller...");
+        System.out.println("Initializing Payment Controller...");
+
         if (productContainer == null) {
-            System.out.println("ERROR: productContainer is null! Check FXML.");
+            System.out.println("ERROR: productContainer is null! Check FXML file.");
             return;
         }
+
+        if (scrollProducts != null) {
+            scrollProducts.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+            scrollProducts.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        }
+
         loadProductsFromDatabase();
     }
 
@@ -49,17 +56,17 @@ public class paymentController {
                 String imagePath = resultSet.getString("image");
 
                 System.out.println("Adding product: " + name);
-                System.out.println("Image path from DB: " + imagePath);
-
                 HBox productBox = createProductBox(name, price, imagePath);
                 productContainer.getChildren().add(productBox);
             }
 
             if (!hasProducts) {
                 System.out.println("No products found in the database.");
+                productContainer.getChildren().add(new Label("No products available."));
             }
 
         } catch (SQLException e) {
+            System.out.println("ERROR: Failed to load products from the database.");
             e.printStackTrace();
         }
     }
@@ -72,16 +79,18 @@ public class paymentController {
         imageView.setFitWidth(50);
         imageView.setFitHeight(50);
 
-        // Check if imagePath is valid
+        // Validate image path and set a default image if missing
         if (imagePath != null && !imagePath.isEmpty()) {
             File imageFile = new File(imagePath);
             if (imageFile.exists()) {
                 imageView.setImage(new Image(imageFile.toURI().toString()));
             } else {
                 System.out.println("WARNING: Image file not found: " + imagePath);
+                imageView.setImage(new Image("file:default_image.png")); // Set default image
             }
         } else {
             System.out.println("WARNING: No image path provided for product: " + name);
+            imageView.setImage(new Image("file:default_image.png")); // Set default image
         }
 
         Label nameLabel = new Label(name);

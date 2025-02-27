@@ -9,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -38,36 +37,32 @@ public class productsController {
     @FXML private Label descriptionLabel;
     @FXML private ImageView productImageView;
     @FXML private ScrollPane productScrollPane;
-    @FXML private HBox productContainer;
+    @FXML private HBox productContain;  // Ensure this matches `products.fxml`
 
     private static final int COLUMNS = 4;
     private File selectedImageFile;
 
     @FXML
     public void initialize() {
-        System.out.println("Initializing Controller...");
+        System.out.println("Initializing Products Controller...");
 
-        if (addProductButton == null) {
-            System.out.println("ERROR: addProductButton is NULL! Check FXML file.");
-        } else {
-            addProductButton.setOnAction(event -> openAddProductForm());
-        }
-
-        if (productContainer == null) {
+        if (productContain == null) {
             System.out.println("ERROR: productContainer is NULL! Check FXML file.");
-        } else {
-            System.out.println("Product container found. Loading products...");
-            loadProductsFromDatabase();
+            return;
         }
-
-        if (productScrollPane == null) {
-            System.out.println("ERROR: productScrollPane is NULL! Check FXML file.");
-        } else {
+        
+        if (productScrollPane != null) {
             Platform.runLater(() -> {
-                productScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS); // Enable scrolling
+                productScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
                 productScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
                 productScrollPane.setFitToHeight(true);
             });
+        }
+
+        loadProductsFromDatabase();
+
+        if (addProductButton != null) {
+            addProductButton.setOnAction(event -> openAddProductForm());
         }
     }
 
@@ -93,10 +88,9 @@ public class productsController {
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
 
-            productContainer.getChildren().clear(); // Clear previous products
+            productContain.getChildren().clear();
             HBox rowBox = new HBox(10);
-            productContainer.getChildren().add(rowBox);
-
+            productContain.getChildren().add(rowBox);
             int count = 0;
             while (resultSet.next()) {
                 String name = resultSet.getString("name");
@@ -106,25 +100,21 @@ public class productsController {
                 String imagePath = resultSet.getString("image");
 
                 System.out.println("Adding product: " + name);
-                if (imagePath != null && !imagePath.isEmpty()) {
-                    System.out.println("Loading image: " + imagePath);
-                } else {
-                    System.out.println("No image found for " + name);
-                }
-
+                
                 VBox productPane = createProductPane(name, price, quantity, description, imagePath);
                 rowBox.getChildren().add(productPane);
                 count++;
 
                 if (count % COLUMNS == 0) {
                     rowBox = new HBox(10);
-                    productContainer.getChildren().add(rowBox);
+                    productContain.getChildren().add(rowBox);
                 }
             }
 
-            Platform.runLater(() -> productContainer.requestLayout());
+            Platform.runLater(() -> productContain.requestLayout());
 
         } catch (SQLException e) {
+            System.out.println("ERROR: Database connection failed!");
             e.printStackTrace();
         }
     }
@@ -144,13 +134,18 @@ public class productsController {
         ImageView imageView = new ImageView();
         imageView.setFitWidth(100);
         imageView.setFitHeight(100);
+
         if (imagePath != null && !imagePath.isEmpty()) {
             File file = new File(imagePath);
             if (file.exists()) {
                 imageView.setImage(new Image(file.toURI().toString()));
             } else {
-                System.out.println("Image file not found: " + imagePath);
+                System.out.println("WARNING: Image file not found: " + imagePath);
+                imageView.setImage(new Image("file:default_image.png")); // Default image if not found
             }
+        } else {
+            System.out.println("WARNING: No image for " + name);
+            imageView.setImage(new Image("file:default_image.png"));
         }
 
         productPane.getChildren().addAll(imageView, nameLabel, priceLabel, quantityLabel, descriptionLabel);
