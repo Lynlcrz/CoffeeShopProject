@@ -22,15 +22,7 @@ public class paymentController {
 
     @FXML
     public void initialize() {
-        try {
-            scrollProducts.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-            scrollProducts.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-            scrollProducts.setContent(productContainer); // Ensure VBox is inside ScrollPane
-            loadProductsFromDatabase();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("Error initializing paymentController: " + e.getMessage());
-        }
+        loadProductsFromDatabase();
     }
 
     private void loadProductsFromDatabase() {
@@ -52,7 +44,6 @@ public class paymentController {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.err.println("Database error: " + e.getMessage());
         }
     }
 
@@ -63,12 +54,8 @@ public class paymentController {
         ImageView imageView = new ImageView();
         imageView.setFitWidth(50);
         imageView.setFitHeight(50);
-        try {
-            if (imagePath != null && !imagePath.isEmpty()) {
-                imageView.setImage(new Image("file:" + imagePath));
-            }
-        } catch (Exception e) {
-            System.err.println("Error loading image: " + imagePath);
+        if (imagePath != null && !imagePath.isEmpty()) {
+            imageView.setImage(new Image("file:" + imagePath));
         }
 
         Label nameLabel = new Label(name);
@@ -77,4 +64,4 @@ public class paymentController {
         productBox.getChildren().addAll(imageView, nameLabel, priceLabel);
         return productBox;
     }
-}
+} 

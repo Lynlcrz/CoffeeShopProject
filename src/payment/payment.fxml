@@ -9,12 +9,12 @@
    <children>
       <Pane prefHeight="694.0" prefWidth="978.0">
          <children>
-            <Pane layoutX="567.0" layoutY="25.0" prefHeight="644.0" prefWidth="392.0" style="-fx-background-color: lightgray;" />
-            <ScrollPane fx:id="scrollProducts" layoutX="18.0" layoutY="26.0" prefHeight="644.0" prefWidth="529.0">
+            <ScrollPane fx:id="scrollProducts" hbarPolicy="NEVER" layoutX="20.0" layoutY="25.0" opacity="0.0" prefHeight="644.0" prefWidth="524.0" vbarPolicy="ALWAYS">
                <content>
-                  <VBox fx:id="productContainer" prefHeight="645.0" prefWidth="527.0" />
+                  <VBox fx:id="productContainer" prefHeight="643.0" prefWidth="520.0" />
                </content>
             </ScrollPane>
+            <Pane layoutX="567.0" layoutY="25.0" prefHeight="644.0" prefWidth="392.0" style="-fx-background-color: lightgray;" />
          </children></Pane>
    </children>
 </AnchorPane>
