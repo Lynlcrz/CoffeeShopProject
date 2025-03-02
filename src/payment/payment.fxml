@@ -9,7 +9,7 @@
    <children>
       <Pane prefHeight="694.0" prefWidth="978.0">
          <children>
-            <ScrollPane fx:id="scrollProducts" hbarPolicy="NEVER" layoutX="19.0" layoutY="27.0" prefHeight="644.0" prefWidth="527.0" vbarPolicy="ALWAYS">
+            <ScrollPane fx:id="scrollProducts" hbarPolicy="NEVER" layoutX="19.0" layoutY="27.0" opacity="0.0" prefHeight="644.0" prefWidth="527.0" vbarPolicy="ALWAYS">
                <content>
                   <VBox fx:id="productContainer" prefHeight="643.0" prefWidth="525.0" />
                </content>
